@@ -17,20 +17,61 @@ class BinarySearchTree {
 
   insert(key, value = true) {
     // TODO
+    const newNode = new BSTNode({ key: key, value: value, parent: null, left: null, right: null });
+    
+    if (this._root == undefined) {
+      this._root = newNode;
+      this._count ++;
+      return;
+    }
+
+    var currNode = this._root;
+    
+    while (currNode) {
+      if (newNode.key == currNode.key) {
+        currNode.value = newNode.value;
+        return;
+      }
+
+      var parent = null;
+
+      if (newNode.key < currNode.key) {
+        if (currNode.left) {
+          parent = currNode;
+          currNode = currNode.left;
+        } else {
+          currNode.left = newNode;
+          this._count += 1;
+          currNode.left.parent = parent;
+          return;
+        }
+      } else if (newNode.key > currNode.key) {
+        if (currNode.right) {
+          parent = currNode;
+          currNode = currNode.right;
+        } else {
+          currNode.right = newNode;
+          this._count += 1;
+          currNode.right.parent = parent;
+          return;
+        }
+      }
+    }
   }
 
   lookup(key) {
     let node = this._root;
 
     while (node) {
-      if (key < node.key) {
+      if (key == node.key) { // equal
+        return node.value;
+      } else if (key < node.key) {
         node = node.left;
       } else if (key > node.key) {
         node = node.right;
-      } else { // equal
-        return node.value;
       }
     }
+    return undefined;
   }
 
   delete(key) {

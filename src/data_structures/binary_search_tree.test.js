@@ -102,70 +102,70 @@ dataStructures.forEach(TargetDS => {
       });
     });
 
-    describe('delete', () => {
-      it('returns the value for the removed record', () => {
+    xdescribe('delete', () => {
+      xit('returns the value for the removed record', () => {
 
       });
 
-      it('returns undefined if the record was not found', () => {
+      xit('returns undefined if the record was not found', () => {
 
       });
 
-      it('reduces the count by 1', () => {
+      xit('reduces the count by 1', () => {
 
       });
 
-      it('omits the removed record from iteration results', () => {
+      xit('omits the removed record from iteration results', () => {
 
       });
 
-      it('can remove every element in a tree', () => {
+      xit('can remove every element in a tree', () => {
 
       });
 
-      describe('scenarios', () => {
+      xdescribe('scenarios', () => {
         // The first step for each of these tests will be to construct
         // a tree matching the scenario. How can you use your knowledge
         // of how insert works to do this? How can you check your work?
 
-        it('can remove the record with the smallest key', () => {
+        xit('can remove the record with the smallest key', () => {
           // TODO:
           // Insert several records
           // Remove the record with the smallest key
           // Ensure that looking up that key returns undefined
         });
 
-        it('can remove the record with the largest key', () => {
+        xit('can remove the record with the largest key', () => {
 
         });
 
-        it('can remove the root', () => {
+        xit('can remove the root', () => {
 
         });
 
-        it('can remove a node with no children', () => {
+        xit('can remove a node with no children', () => {
 
         });
 
-        it('can remove a node with only a left child', () => {
+        xit('can remove a node with only a left child', () => {
 
         });
 
-        it('can remove a node with only a right child', () => {
+        xit('can remove a node with only a right child', () => {
 
         });
 
-        it('can remove a node with both children, where the successor is the node\'s right child', () => {
+        xit('can remove a node with both children, where the successor is the node\'s right child', () => {
 
         });
 
-        it('can remove a node with both children, where the successor is not the node\'s right child', () => {
+        xit('can remove a node with both children, where the successor is not the node\'s right child', () => {
 
         });
       });
     });
 
-    describe('forEach', () => {
+    xdescribe('forEach', () => {
       let records;
       beforeEach(() => {
         records = [
@@ -187,14 +187,14 @@ dataStructures.forEach(TargetDS => {
         });
       }
 
-      it('runs the callback 0 times on an empty tree', () => {
+      xit('runs the callback 0 times on an empty tree', () => {
         const cb = jest.fn();
         bst.forEach(cb);
 
         expect(cb.mock.calls.length).toBe(0);
       });
 
-      it('provides {key, value}, index and tree as cb args', () => {
+      xit('provides {key, value}, index and tree as cb args', () => {
         bst.insert('key', 'value');
 
         const cb = jest.fn();
