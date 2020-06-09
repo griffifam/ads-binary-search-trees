@@ -102,41 +102,108 @@ dataStructures.forEach(TargetDS => {
       });
     });
 
-    xdescribe('delete', () => {
-      xit('returns the value for the removed record', () => {
+    describe('delete', () => {
+      it('returns the value for the removed record', () => {
+        expect(bst.count()).toBe(0);
+        bst.insert('1st', 'first value');
+        bst.insert('2nd', 'second value');
+        bst.insert('3rd', 'third value');
+        expect(bst.count()).toBe(3);
 
+        bst.delete('2nd');
+        expect(bst.count()).toBe(2);
       });
 
-      xit('returns undefined if the record was not found', () => {
+      it('returns undefined if the record was not found', () => {
+        expect(bst.count()).toBe(0);
+        bst.insert('1st', 'first value');
+        bst.insert('2nd', 'second value');
+        expect(bst.count()).toBe(2);
 
+        let expected = bst.delete('3rd');
+        expect(expected).toBe(undefined);
       });
 
-      xit('reduces the count by 1', () => {
+      it('reduces the count by 1', () => {
+        expect(bst.count()).toBe(0);
+        bst.insert('1st', 'first value');
+        bst.insert('2nd', 'second value');
+        expect(bst.count()).toBe(2);
 
+        bst.delete('2nd');
+        expect(bst.count()).toBe(1);
       });
 
-      xit('omits the removed record from iteration results', () => {
+      it('omits the removed record from iteration results', () => {
+        const keys = [['many', 'keys'], ['for', 'this'], ['kinda','tree']];
+        keys.forEach((key, i) => {
+          bst.insert(key[0], key[1]);
+          expect(bst.count()).toBe(1 + i);
+        });
 
+        bst.delete('for');
+        expect(bst.lookup('for')).toBe(undefined);
+        expect(bst.count()).toBe(2);
       });
 
-      xit('can remove every element in a tree', () => {
+      it('can remove every element in a tree', () => {
+        const keys = [['many', 'keys'], ['for', 'this'], ['kinda','tree']];
+        keys.forEach((key, i) => {
+          bst.insert(key[0], key[1]);
+          expect(bst.count()).toBe(1 + i);
+        });
+        keys.forEach((key, i) => {
+          bst.delete(key[0]);
+        });
 
+        expect(bst.count()).toBe(0);
       });
 
-      xdescribe('scenarios', () => {
+      describe('scenarios', () => {
         // The first step for each of these tests will be to construct
         // a tree matching the scenario. How can you use your knowledge
         // of how insert works to do this? How can you check your work?
 
-        xit('can remove the record with the smallest key', () => {
+        it('can remove the record with the smallest key', () => {
           // TODO:
+          const keys = [[1, 'one'], [4, 'four'], [9, 'nine'], [5, 'five'], [2, 'two']];
           // Insert several records
+          keys.forEach((key, i) => {
+            bst.insert(key[0], key[1]);
+            expect(bst.count()).toBe(1 + i);
+          });
           // Remove the record with the smallest key
-          // Ensure that looking up that key returns undefined
+          var smallestKey = 100;
+          keys.forEach((key) => {
+            if (key[0] < smallestKey) {
+              smallestKey = key[0];
+            };
+          });
+          expect(bst.lookup(smallestKey)).toBe('one');
+          bst.delete(smallestKey);
+          // // Ensure that looking up that key returns undefined
+          expect(bst.lookup(smallestKey)).toBe(undefined);
         });
 
         xit('can remove the record with the largest key', () => {
-
+          // TODO:
+          const keys = [[1, 'one'], [4, 'four'], [9, 'nine'], [5, 'five'], [2, 'two']];
+          // Insert several records
+          keys.forEach((key, i) => {
+            bst.insert(key[0], key[1]);
+            expect(bst.count()).toBe(1 + i);
+          });
+          // Remove the record with the largest key
+          var largestKey = 0;
+          keys.forEach((key) => {
+            if (key[0] > largestKey) {
+              largestKey = key[0];
+            };
+          });
+          expect(bst.lookup(largestKey)).toBe('nine');
+          bst.delete(largestKey);
+          // // Ensure that looking up that key returns undefined
+          expect(bst.lookup(largestKey)).toBe(undefined);
         });
 
         xit('can remove the root', () => {
@@ -165,7 +232,7 @@ dataStructures.forEach(TargetDS => {
       });
     });
 
-    xdescribe('forEach', () => {
+    describe('forEach', () => {
       let records;
       beforeEach(() => {
         records = [
@@ -187,14 +254,14 @@ dataStructures.forEach(TargetDS => {
         });
       }
 
-      xit('runs the callback 0 times on an empty tree', () => {
+      it('runs the callback 0 times on an empty tree', () => {
         const cb = jest.fn();
         bst.forEach(cb);
 
         expect(cb.mock.calls.length).toBe(0);
       });
 
-      xit('provides {key, value}, index and tree as cb args', () => {
+      it('provides {key, value}, index and tree as cb args', () => {
         bst.insert('key', 'value');
 
         const cb = jest.fn();

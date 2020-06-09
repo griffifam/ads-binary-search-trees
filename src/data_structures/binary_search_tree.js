@@ -76,6 +76,44 @@ class BinarySearchTree {
 
   delete(key) {
     // TODO (tests first!)
+    let node = this._root;
+    while (node) {
+      if (key == node.key) { // equal
+
+        // save node.value
+        var returnedVal = node.value;
+
+        // find largest node in left subtree
+        let curr = node;
+        if (node.left && node.right) {
+          curr = node.left;
+        } else if (!node.left && node.right) {
+          curr = node.right;
+        }
+        
+        while (curr.right) {
+          curr = curr.right;
+        }
+
+        // replace node.value with largest node.value
+        node.value = curr.value;
+        node.key = curr.key;
+
+        // remove node that was copied
+        curr = undefined;
+
+        // reduce count by 1
+        this._count --;
+
+        // return node.value 
+        return returnedVal;
+      } else if (key < node.key) {
+        node = node.left;
+      } else if (key > node.key) {
+        node = node.right;
+      }
+    }
+    return undefined;
   }
 
   count() {
