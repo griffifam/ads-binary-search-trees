@@ -83,14 +83,25 @@ class BinarySearchTree {
         // save node.value
         var returnedVal = node.value;
 
-        // find largest node in left subtree
+        // traverser
         let curr = node;
-        if (node.left && node.right) {
+
+        // if node is a leaf
+        if (!node.left && !node.right) {
+          node = undefined;
+          this._count --;
+          return returnedVal;
+        
+        // if node has left child only 
+        } else if (node.left) {
           curr = node.left;
+        
+        // if node has right child only  
         } else if (!node.left && node.right) {
           curr = node.right;
         }
         
+        // find the largest node
         while (curr.right) {
           curr = curr.right;
         }

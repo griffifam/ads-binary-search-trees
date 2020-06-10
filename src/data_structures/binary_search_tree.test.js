@@ -185,7 +185,7 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(smallestKey)).toBe(undefined);
         });
 
-        xit('can remove the record with the largest key', () => {
+        it('can remove the record with the largest key', () => {
           // TODO:
           const keys = [[1, 'one'], [4, 'four'], [9, 'nine'], [5, 'five'], [2, 'two']];
           // Insert several records
@@ -206,12 +206,33 @@ dataStructures.forEach(TargetDS => {
           expect(bst.lookup(largestKey)).toBe(undefined);
         });
 
-        xit('can remove the root', () => {
+        it('can remove the root', () => {
+          const keys = [[1, 'one'], [4, 'four'], [9, 'nine'], [5, 'five'], [2, 'two']];
+          // Insert several records
+          keys.forEach((key, i) => {
+            bst.insert(key[0], key[1]);
+            expect(bst.count()).toBe(1 + i);
+          });
 
+          // Remove root
+          let root = keys[0];
+          expect(bst.lookup(root[0])).toBe('one');
+          bst.delete(root[0]);
+          expect(bst.lookup(root[0])).toBe(undefined);
         });
 
-        xit('can remove a node with no children', () => {
+        it('can remove a node with no children', () => {
+          const keys = [[1, 'one'], [4, 'four']];
+          // Insert several records
+          let count = 0;
+          keys.forEach((key, i) => {
+            bst.insert(key[0], key[1]);
+            count ++;
+          });
 
+          let lastNode = keys[count - 1];
+          expect(bst.lookup(lastNode[0])).toBe(lastNode[1]);
+          bst.delete(lastNode[0]);
         });
 
         xit('can remove a node with only a left child', () => {
